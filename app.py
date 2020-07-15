@@ -44,6 +44,7 @@ def createNotionNote(token, collectionURL, content, category, noteformat,filepat
     row.category = category
     row.format = noteformat
     row.files = filepath
+    row.children.add_new(CalloutBlock, title="I am a callout", icon="🤞")
     
 @app.route('/create_note', methods=['GET'])
 def create_note():
