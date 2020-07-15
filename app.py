@@ -7,6 +7,23 @@ from flask import request
 
 app = Flask(__name__)
 
+class BasicBlock(Block):
+
+    title = property_map("title")
+    color = field_map("format.block_color")
+
+    def convert_to_type(self, new_type):
+        """
+        Convert this block into another type of BasicBlock. Returns a new instance of the appropriate class.
+        """
+        assert new_type in BLOCK_TYPES and issubclass(BLOCK_TYPES[new_type], BasicBlock), \
+            "Target type must correspond to a subclass of BasicBlock"
+        self.type = new_type
+        return self._client.get_block(self.id)
+
+    def _str_fields(self):
+        return super()._str_fields() + ["title"]
+
 
 def createNotionTask(token, collectionURL, content, status, description, source, category, trellourl):
     # notion
@@ -44,6 +61,7 @@ def createNotionNote(token, collectionURL, content, category, noteformat,filepat
     row.category = category
     row.format = noteformat
     row.files = filepath
+    row.children.add_new(BasicBlock, title="I am a note")
     
 @app.route('/create_note', methods=['GET'])
 def create_note():
