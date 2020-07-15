@@ -8,7 +8,7 @@ from flask import request
 app = Flask(__name__)
 
 
-def createNotionTask(token, collectionURL, content, status, description, source, category):
+def createNotionTask(token, collectionURL, content, status, description, source, category, trellourl):
     # notion
     client = NotionClient(token)
     cv = client.get_collection_view(collectionURL)
@@ -18,6 +18,7 @@ def createNotionTask(token, collectionURL, content, status, description, source,
     row.description = description
     row.source = source
     row.category = category
+    row.url = trellourl
 
 
 @app.route('/create_todo', methods=['GET'])
@@ -28,6 +29,7 @@ def create_todo():
     description = request.args.get('description')
     source = request.args.get('source')
     category = request.args.get('category')
+    trellourl = request.args.get('trellourl')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
     createNotionTask(token_v2, url, todo, status, description, source, category)
