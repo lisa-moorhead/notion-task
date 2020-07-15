@@ -18,7 +18,7 @@ def createNotionTask(token, collectionURL, content, status, description, source,
     row.description = description
     row.source = source
     row.category = category
-    row.url = trellourl
+    row.trellourl = trellourl
 
 
 @app.route('/create_todo', methods=['GET'])
