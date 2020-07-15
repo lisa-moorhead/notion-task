@@ -50,7 +50,7 @@ def create_note():
     note = request.args.get('note')
     category = request.args.get('category')
     noteformat = request.args.get('noteformat')
-    filepath = ["https://www.birdlife.org/sites/default/files/styles/1600/public/slide.jpg"]
+    filepath = request.args.get(['filepath'])
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("NOTE_URL")
     createNotionNote(token_v2, url, note, category, noteformat, filepath)
