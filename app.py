@@ -20,9 +20,10 @@ def createNotionTask(token, collectionURL, content):
 def create_todo():
 
     todo = request.args.get('todo')
+    status = request.args.get('status')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
-    createNotionTask(token_v2, url, todo)
+    createNotionTask(token_v2, url, todo, status)
     return f'added {todo} to Notion'
 
 
