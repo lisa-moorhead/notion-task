@@ -30,7 +30,7 @@ def create_todo():
     category = request.args.get('category')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
-    createNotionTask(token_v2, url, todo, status, description)
+    createNotionTask(token_v2, url, todo, status, description, source, category)
     return f'added {todo} to Notion'
 
 
