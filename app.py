@@ -44,7 +44,6 @@ def createNotionNote(token, collectionURL, content, category, noteformat,filepat
     row.category = category
     row.format = noteformat
     row.files = filepath
-    row.children.add_new(CalloutBlock, title="I am a callout", icon="🤞")
     
 @app.route('/create_note', methods=['GET'])
 def create_note():
@@ -56,7 +55,6 @@ def create_note():
     url = os.environ.get("NOTE_URL")
     createNotionNote(token_v2, url, note, category, noteformat, filepath)
     return f'added {note} to Notion'
-
 
 if __name__ == '__main__':
     app.debug = True
