@@ -35,19 +35,23 @@ def create_todo():
     createNotionTask(token_v2, url, todo, status, description, source, category, trellourl)
     return f'added {todo} to Notion'
 
-def createNotionNote(token, collectionURL, content):
+def createNotionNote(token, collectionURL, content, category, noteformat):
     # notion
     client = NotionClient(token)
     cv = client.get_collection_view(collectionURL)
     row = cv.collection.add_row()
     row.title = content
+    row.category = category
+    row.format = noteformat
     
 @app.route('/create_note', methods=['GET'])
 def create_note():
     note = request.args.get('note')
+    category = request.args.get('category')
+    noteformat = request.args.get('noteformat')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("NOTE_URL")
-    createNotionNote(token_v2, url, note)
+    createNotionNote(token_v2, url, note, category, noteformat)
     return f'added {note} to Notion'
 
 
