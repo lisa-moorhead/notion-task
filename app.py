@@ -18,7 +18,7 @@ def createNotionTask(token, collectionURL, content, status, description, source,
     row.description = description
     row.source = source
     row.category = category
-    row.trellourl = trellourl
+    row.url = trellourl
 
 
 @app.route('/create_todo', methods=['GET'])
@@ -32,7 +32,7 @@ def create_todo():
     trellourl = request.args.get('trellourl')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
-    createNotionTask(token_v2, url, todo, status, description, source, category)
+    createNotionTask(token_v2, url, todo, status, description, source, category, trellourl)
     return f'added {todo} to Notion'
 
 
